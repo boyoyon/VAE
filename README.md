@@ -1,1 +1,68 @@
-"# VAE" 
+<html lang="ja">
+    <head>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <h1><center>VAE</center></h1>
+        <h2>なにものか？</h2>
+        <p>
+            VAEにより画像生成するプログラムです。<br><br>
+            学習は GPU 無しだと遅すぎますが、画像生成は CPU のみでもサクサク実行できます。<br>
+            ゼロから作るシリーズの MNIST 生成サンプルを 128 x 128 のカラー画像生成用に改造しました。<br><br>
+            (学習例) <a href="https://images.cv/download/cat_face/5444">猫画像データセット</a>からの2,504枚画像で学習を実施<br>
+            (画像生成例1) python src\animate.py<br>
+            <img src="images/cats.gif"><br>
+            (画像生成例2) python src\generate.py<br>
+            <img src="images/cats.png">
+        </p>
+        <h2>環境構築方法</h2>
+        <h3>PyTorch</h3>
+        <p>
+              <a href="https://pytorch.org/get-started/previous-versions/">PyTorchホームページ</a>のv1.13.1のインストール手順を参照ください<br>
+              CPUのみの場合<br>
+              pip install torch==1.13.1+cpu torchvision==0.14.1+cpu torchaudio==0.13.1 --extra-index-url https://download.pytorch.org/whl/cpu
+        </p>
+        <h3>OpenCV</h3>
+        <p>
+              pip install opencv-python<br>
+        </p>
+        <h3>Numpy</h3>
+        <p>
+              pip install numpy==1.26.1
+        </p>
+        <h2>使い方</h2>
+        <img src="images/workflow.svg">
+        <h3>準備</h3>
+        <p>
+            学習データ用の画像群を 128x128 にリサイズし、.npy にまとめます。<br>
+            python create_training_data.py (画像ファイルに対するワイルドカード)<br>
+            (例) python create_training_data.py  *.jpg
+        </p>
+        <h3>学習</h3>
+        <p>
+            (新規学習) python train.py (学習データ(.npy))<br>
+            (学習再開) python train.py (学習データ(.npy)) (modelデータ(.pth)) (optimizerデータ(.pth))<br>
+        </p>
+        <h3>生成</h3>
+        <p>
+            (アニメーション) python animate.py (modelデータ(.pth))<br>
+            <br>
+            (画像一覧生成)   python generate.py (modelデータ(.pth))<br>
+            <table border="1">
+                <tr><th>操作</th><th>機能</th></tr>
+                <tr><td>ESCキー押下</td><td>プログラム終了</td></tr>
+                <tr><td>矢印キー押下</td><td>画像選択カーソルの移動</td></tr>
+                <tr><td>sキー押下</td><td>選択された画像の保存</td></tr>
+                <tr><td>Sキー押下</td><td>スクリーン(画像群)の保存</td></tr>
+                <tr><td>iキー押下</td><td>補間モードに移行</td></tr>
+                <tr><td>rキー押下</td><td>ランダムモードに移行</td></tr>
+                <tr><td>その他のキー押下</td><td>生成画像の更新</td></tr>
+            </table>
+        </p>
+        <h2>その他</h2>
+        <p>
+            モデルパラメータが20MB未満になるように hidden_dim=50, latent_dim =10 に設定しています。<br>
+            これらのパラメータを大きくすると生成品質が改善するかもしれません(未確認^^;)
+        </p>
+    </body>
+</html>
