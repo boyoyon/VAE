@@ -24,7 +24,6 @@
             <img src="images/cats.png">
         </p>
         <h2>環境構築方法</h2>
-
         <h3>PyTorch</h3>
         <p>
               <a href="https://pytorch.org/get-started/previous-versions/">PyTorchホームページ</a>のv1.13.1のインストール手順を参照ください<br>
@@ -50,6 +49,7 @@
         <h3>学習</h3>
         <p>
             (新規学習) python train.py (学習データ(.npy))<br>
+            ※ lossが3,000未満になるまでパラメータが保存されません。変更したい場合は lossIdxMin に代入している値を変更してください。<br>
             (学習再開) python train.py (学習データ(.npy)) (modelデータ(.pth)) (optimizerデータ(.pth))<br>
         </p>
         <h3>生成</h3>
@@ -65,7 +65,7 @@
                 <tr><td>Sキー押下</td><td>スクリーン(画像群)の保存</td></tr>
                 <tr><td>iキー押下</td><td>補間モードに移行</td></tr>
                 <tr><td>rキー押下</td><td>ランダムモードに移行</td></tr>
-                <tr><td>その他のキー押下</td><td>画像生成</td></tr>
+                <tr><td>その他のキー押下</td><td>生成画像の更新</td></tr>
             </table>
         </p>
         <h2>その他</h2>
@@ -74,3 +74,4 @@
             これらのパラメータを大きくすると生成品質が改善するかもしれません(未確認^^;)
         </p>
     </body>
+</html>
