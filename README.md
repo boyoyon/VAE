@@ -41,6 +41,7 @@
         <h3>学習</h3>
         <p>
             (新規学習) python train.py (学習データ(.npy))<br>
+            ※ lossが3,000未満になるまでパラメータが保存されません。変更したい場合は lossIdxMin に代入している値を変更してください。
             (学習再開) python train.py (学習データ(.npy)) (modelデータ(.pth)) (optimizerデータ(.pth))<br>
         </p>
         <h3>生成</h3>
