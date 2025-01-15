@@ -282,7 +282,6 @@ def main():
             prevR = r
             prevC = c
             fUpdate = False
-            print('Update screen')
 
     cv2.destroyAllWindows()
 
