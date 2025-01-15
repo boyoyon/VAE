@@ -97,6 +97,8 @@ def draw_cursor(screen, r, c):
 
 def main():
 
+    global nrRows, nrCols
+
     argv = sys.argv
     argc = len(argv)
 
@@ -107,7 +109,13 @@ def main():
         quit()
 
     model_params = argv[1]
- 
+
+    if argc > 2:
+        nrRows = int(argv[2])
+
+    if argc > 3:
+        nrCols = int(argv[3])
+
     torch.manual_seed(42)
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
