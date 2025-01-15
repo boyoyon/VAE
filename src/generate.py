@@ -24,6 +24,8 @@ latent_dim = 10
 
 z2 = torch.randn(nrRows * nrCols, latent_dim)
 
+fRandom = True
+
 class Encoder(nn.Module):
     def __init__(self, input_dim, hidden_dim, latent_dim):
         super().__init__()
@@ -113,8 +115,7 @@ def generate_images(model):
     screen = np.empty((SIZE * nrRows, SIZE * nrCols, 3), np.float32)
 
     
-    if not keepTopLeft:
-        z2[0] = torch.randn(1, latent_dim)
+    z2[0] = torch.randn(1, latent_dim)
    
     seed1 = torch.randn(1, latent_dim)
     seed2 = torch.randn(1, latent_dim)
@@ -156,60 +157,59 @@ def generate_images(model):
 
     return screen
 
-argv = sys.argv
-argc = len(argv)
+def main():
 
-print('%s generates images using HVAE model' % argv[0])
-print('[usage] python %s [<trained parameters(.pth)>]' % argv[0])
+    global fRandom 
 
-device = 'cuda' if torch.cuda.is_available() else 'cpu'
-print(device)
-
-model = VAE(input_dim, hidden_dim, latent_dim)
-
-pre_trained_filename = os.path.join(os.path.dirname(__file__), '..\\data\\vae_1120.pth')
-
-if argc > 1:
-    pre_trained_filename = argv[1]
-
-if not os.path.isfile(pre_trained_filename):
-    print('trained parameter is not fount at %s' % pre_trained_filename)
-    quit()
-
-model.load_state_dict(torch.load(pre_trained_filename, map_location=device))
-
-key = -1
-no = 1
-scrNo = 1
-
-print()
-print('Press ESC-key to terminate')
-print('Press Arrow-keys to move cursor')
-print('Press r-key to randome mode')
-print('Press i-key to interpolate mode')
-print('Press s-key to save the selected image')
-print('Press S-key to save screen image')
-print('Press other key to generate images')
-print()
-
-keepTopLeft = False
-fRandom = True
-
-while key != 27:
-
-    screen = generate_images(model)
-    cv2.imshow('screen', screen)
-
+    argv = sys.argv
+    argc = len(argv)
+    
+    print('%s generates images using HVAE model' % argv[0])
+    print('[usage] python %s [<trained parameters(.pth)>]' % argv[0])
+    
+    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    print(device)
+    
+    model = VAE(input_dim, hidden_dim, latent_dim)
+    
+    pre_trained_filename = os.path.join(os.path.dirname(__file__), '..\\data\\vae_1120.pth')
+    
+    if argc > 1:
+        pre_trained_filename = argv[1]
+    
+    if not os.path.isfile(pre_trained_filename):
+        print('trained parameter is not fount at %s' % pre_trained_filename)
+        quit()
+    
+    model.load_state_dict(torch.load(pre_trained_filename, map_location=device))
+    
+    print()
+    print('Press ESC-key to terminate')
+    print('Press Arrow-keys to move cursor')
+    print('Press r-key to randome mode')
+    print('Press i-key to interpolate mode')
+    print('Press s-key to save the selected image')
+    print('Press S-key to save screen image')
+    print('Press other key to generate images')
+    print()
+    
+    key = -1
+    no = 1
+    scrNo = 1
+    
     r = 0
     c = 0
-
+    
     prevR = -1
     prevC = -1
+    
+    screen = generate_images(model)
 
-    while True:
+    fUpdate = True
 
+    while key != 27:
+    
         key = cv2.waitKeyEx(100)
-        #key = cv2.waitKeyEx(0)
     
         if key == UP:
             r -= 1
@@ -255,20 +255,20 @@ while key != 27:
 
         elif key == ord('r') or key == ord('R'):
 
-            keepTopLeft = False
             fRandom = True
+            fUpdate = True
             screen = generate_images(model)
 
         elif key == ord('i') or key == ord('I'):
 
-            keepTopLeft = False
             fRandom = False
+            fUpdate = True
             screen = generate_images(model)
 
         elif key != -1:
-            break
+            screen = generate_images(model)
 
-        if r != prevR or c != prevC:
+        if r != prevR or c != prevC or fUpdate:
             left = c * SIZE
             right = left + SIZE
             top = r * SIZE
@@ -278,5 +278,14 @@ while key != 27:
             dst = cv2.rectangle(dst, (left, top), (right, bottom), (255, 0, 255), 2)
             H, W = dst.shape[:2]
             cv2.imshow('screen', dst) 
+            
+            prevR = r
+            prevC = c
+            fUpdate = False
+            print('Update screen')
 
-cv2.destroyAllWindows()
+    cv2.destroyAllWindows()
+
+if __name__ == '__main__':
+    main()
+
