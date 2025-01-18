@@ -78,6 +78,17 @@
             　データが少なすぎるのか、学習が不十分なのか<br>
             ・重い(CPUではいつまで経っても生成できない)<br>
             <img src="images/example_ddpm.png"><br>
+            DDPMの入力を乱数から、VAE出力に変えてみたところ、パーツレイアウトが安定した。<br>
+            (試行錯誤の結果、VAE出力の振幅を半分にして、デノイズ回数を1,000回から300回に減らした)<br>
+            <img src="images/workflow.png"><br>
+            ・VAE出力(DDPM入力)<br>
+            <img src="images/VAE.png"><br>
+            ・VAEを入力した場合のDDPM出力<br>
+              python src\vae_ddpm_generate.py data\vae_model_faces.pth data\ddpm_model_faces.pth 4 4<br>
+            <img src="images/ddpm_w_vae.png"><br>
+            ・乱数を入力としたDDPM出力<br>
+              python src\ddpm_generate.py data\ddpm_model_faces.pth 4 4<br>
+            <img src="images/ddpm_wo_vae.png"><br>
         </p>
     </body>
 </html>
