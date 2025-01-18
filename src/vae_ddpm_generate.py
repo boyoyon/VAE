@@ -268,11 +268,11 @@ def main():
     print('%s generates image using DDPM' % argv[0])
     print('[usage] python %s <VAE params> <DDPM params> [<nrRows> <nrCols>]' % argv[0])
     
-    paramsVAE = os.path.join(os.path.dirname(__file__), '..\\data\\vae_1120.pth')
+    paramsVAE = os.path.join(os.path.dirname(__file__), '..\\data\\vae_model_faces.pth')
     if argc > 1:
         paramsVAE = argv[1]
 
-    paramsDDPM = os.path.join(os.path.dirname(__file__), '..\\data\\ddpm_model.pth')
+    paramsDDPM = os.path.join(os.path.dirname(__file__), '..\\data\\ddpm_model_faces.pth')
     if argc > 2:
         paramsDDPM = argv[2]
 
