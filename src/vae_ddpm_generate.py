@@ -217,8 +217,8 @@ def p_sample_loop(model, seeds):
     for i in tqdm(reversed(range(0, timesteps)), desc='sampling loop time step', total=timesteps):
         t = torch.full((b,), i, device=device, dtype=torch.long)
         img = p_sample(model, img, t, i)
-
-        imgs = img.to('cpu').detach().numpy()
+        img2 = img.clone()
+        imgs = img2.to('cpu').detach().numpy()
         imgs = np.transpose(imgs, (0, 2, 3, 1)) # n,c,h,w --> n,h,w,c
         imgs += 1   # -1~1 --> 0~2
         imgs /= 2   # 0~1
