@@ -266,6 +266,7 @@ def main():
             screen = generate_images(model)
 
         elif key != -1:
+            fUpdate = True
             screen = generate_images(model)
 
         if r != prevR or c != prevC or fUpdate:
