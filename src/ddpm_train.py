@@ -193,7 +193,7 @@ def main():
 
         train_loss = np.mean(losses)
         lossIdx = int(train_loss * 100000)
-        print(lossIdx)
+        print('lossIdx: %d, lossIdxMin: %s' % (lossIdx,lossIdxMin))
 
         if lossIdx < lossIdxMin:
             filename_model = 'model_%d.pth' % lossIdx
@@ -205,10 +205,10 @@ def main():
             optimizers.append(filename_optimizer)
 
             while len(models) > nrHistory:
-                cmd = 'del %s' % filename_model
+                cmd = 'del %s' % models[0]
                 subprocess.run(cmd, shell=True)
                 del(models[0])
-                cmd = 'del %s' % filename_optimizer
+                cmd = 'del %s' % optimizers[0]
                 subprocess.run(cmd, shell=True)
                 del(optimizers[0])
 
