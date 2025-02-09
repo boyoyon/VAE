@@ -92,5 +92,27 @@
             ・VAE出力のかわりに画像を入力し、DDPMモデルで画像生成してみる<br>
             　python src\ddpm_derive.py (画像ファイル)<br>
         </p>
+        <h3>小手先の対応</h3>
+        <p>
+            ・学習データにZCA whiteningを適用する<br>
+            　⇒ 4096×4096の行列が重いのか処理が終わらず断念<br>
+            <br>
+            ・学習データにフィルタを適用 (VAEでボケるなら学習データのエッジを強調してみては？という思い付き...)<br>
+            　(エッジ強調) python src\filter2dTrainData.py (学習データ(.npy))<br>
+            　(結果)　　　 data\vae_filter2d_model.pth<br>
+            　(コントラスト補正) python src\claheTrainData.py (学習データ(.npy))<br> 
+            　(結果)　　　 data\vae_clahed_model.pth<br>
+            　(ぼかし)　python src\blurTrainData.py (学習データ(.npy))<br>
+            　(結果)　　なし<br>
+           <br>
+            ・学習データのマージ<br>
+            　python src\mergeTrainData.py (学習データ1(.npy) (学習データ2(.npy))<br>
+           <br>
+            ・学習データの表示<br>
+            　python src\displat_training_data.py (学習データ(.npy))<br>
+            <br>
+            ・元の画像のアスペクト比を維持した学習データの作成<br>
+            　python src\create_training_data_keep_aspect_ratio.py (画像群へのワイルドカード)<br>
+        </p>
     </body>
 </html>
