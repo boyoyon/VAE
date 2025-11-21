@@ -7,10 +7,15 @@ argv = sys.argv
 argc = len(argv)
 
 print('%s blurres training data' % argv[0])
-print('[usage] python %s <training_data(.npy)>' % argv[0])
+print('[usage] python %s <training_data(.npy)> [<SIZE>]' % argv[0])
 
 if argc < 2:
     quit()
+
+if argc > 2:
+    SIZE = int(argv[2])
+    if SIZE % 2 == 0:
+        SIZE += 1
 
 imgs = np.load(argv[1])
 nrImages = imgs.shape[0]
