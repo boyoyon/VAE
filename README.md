@@ -120,5 +120,13 @@
             アスペクト比維持＋コントラスト補正<br>
             <img src="images/faces_keep_aspect_and_clahed.gif"><br>
         </p>
+        <p>
+        　ぼかした学習データを渡して、デコード画像のボケを改善できないか試してみた。<br>
+        　効果はよく判らず･･･<br>
+        　ワークフローと狙いは以下<br>
+        　<img src="images/workflow2.svg"><br>
+            ・学習データをぼかす：　python blurTrainData.py (学習データ(.npy))<br>
+            ・ぼかした学習データを使って学習：　python train_sharp_blurred.py (学習データ(.npy))　(ぼかした学習データ(.npy))
+        </p>
     </body>
 </html>
