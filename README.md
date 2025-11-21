@@ -125,7 +125,7 @@
         　効果はよく判らず･･･<br>
         　ワークフローと狙いは以下<br>
         　<img src="images/workflow2.svg"><br>
-            ・学習データをぼかす：　python blurTrainData.py (学習データ(.npy))<br>
+            ・学習データをぼかす：　python blurTrainData.py (学習データ(.npy)) [<ガウスフィルタサイズ(default:7)>]]<br> 
             ・ぼかした学習データを使って学習：　python train_sharp_blurred.py (学習データ(.npy))　(ぼかした学習データ(.npy))
         </p>
     </body>
