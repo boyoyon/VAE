@@ -120,6 +120,7 @@
             アスペクト比維持＋コントラスト補正<br>
             <img src="images/faces_keep_aspect_and_clahed.gif"><br>
         </p>
+        <h3>小手先の対応2</h3>
         <p>
         　ぼかした学習データを渡して、デコード画像のボケを改善できないか試してみた。<br>
         　効果はよく判らず･･･<br>
@@ -128,5 +129,27 @@
             ・学習データをぼかす：　python blurTrainData.py (学習データ(.npy)) [<ガウスフィルタサイズ(default:7)>]]<br> 
             ・ぼかした学習データを使って学習：　python train_sharp_blurred.py (学習データ(.npy))　(ぼかした学習データ(.npy))
         </p>
-    </body>
+        <h3>小手先の対応3</h3>
+        <p>
+        しつこく、小手先の対応を試してみた。(CPUでも生成が可能なVAEでぼやけるのを直したい･･･世の中, ナノバナナとか言っているのに･･･）<br>
+        <img src="images/workflow3.svg"><br>
+        ぼやけた生成画像に後処理でHigh Pass Filterを掛けるより多少良い気がする(ひいき目)<br>
+        ・ぼやけた生成画像<br>        <img src="images/VAE_Low.png"><br>
+        ・modelLPF+modelHPFでぼけを改善<br>
+        <img src="images/VAE_Low+Hight.png"><br>
+        ・ぼやけた生成画像に後処理でHigh Pass Filterを掛ける<br>
+        <img src="images/VAE_Low_HPF.png"><br>
+        <br>
+        (使い方)<br>
+・modelHPF 用学習データの作成<br>
+　python src\HPF_train_data.py (学習データ)<br>
+<br>
+・modelHPFの学習<br>
+　python src\trainHPF.py (学習データ)_HPF.npy<br>
+<br>
+・modelHPFを使った画像生成<br>
+　python src\generateHPF.py data/modelLPF.pth data\modelHPF.pth<br>
+　+/- キー押下で modelHPF の効果を上げ下げします。<br>
+</p>
+</body>
 </html>
