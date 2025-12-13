@@ -135,7 +135,7 @@
         <img src="images/workflow3.svg"><br>
         ぼやけた生成画像に後処理でHigh Pass Filterを掛けるより多少良い気がする(ひいき目)<br>
         ・ぼやけた生成画像<br>        <img src="images/VAE_Low.png"><br>
-        ・modelLPF+modelHPFでぼけを改善<br>
+        ・model_Low + model_High でぼけを改善<br>
         <img src="images/VAE_Low+Hight.png"><br>
         ・ぼやけた生成画像に後処理でHigh Pass Filterを掛ける<br>
         <img src="images/VAE_Low_HPF.png"><br>
