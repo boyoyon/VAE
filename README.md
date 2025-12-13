@@ -148,8 +148,11 @@
 　python src\trainHPF.py (学習データ)_HPF.npy<br>
 <br>
 ・modelHPFを使った画像生成<br>
-　python src\generateHPF.py data/modelLPF.pth data\modelHPF.pth<br>
+　python src\generateHPF.py data\model_Low.pth data\model_Hight.pth<br>
 　+/- キー押下で modelHPF の効果を上げ下げします。<br>
+<br>
+高周波を強調すると顔の変化が減る気がしたので、純粋に後段でHPFを掛けてみた。<br>
+python src\generate_backendHPF.py data\model_Low.pth<br>
 </p>
 </body>
 </html>
