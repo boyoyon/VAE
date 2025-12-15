@@ -14,7 +14,7 @@
             <img src="images/cats.gif"><br>
             (画像生成例2) python src\generate.py<br>
             <img src="images/cats.png"><br>
-            (画像生成例2') python src\generate.py<br>
+            (画像生成例2') python src\generateHPF.py data\vae_1120.pth data\vae_1120_HPF.pth<br>
             <img src="images/catsHPF.png"><br>
             (画像生成例3) python src\animate.py data\vae_model_faces.pth<br>
             <img src="images/faces.gif"><br>
